@@ -13,7 +13,10 @@ class TikTok extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      theme: ThemeData(primaryColor: const Color(0xFFE9435A)),
+      theme: ThemeData(
+        primaryColor: const Color(0xFFE9435A),
+        scaffoldBackgroundColor: Colors.white,
+      ),
       home: SignUpScreen(),
     );
   }
