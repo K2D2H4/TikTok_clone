@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:tiktok_clone/features/onboarding/tutorial_screen.dart';
 import 'package:tiktok_clone/features/onboarding/widgets/interest_button.dart';
 
 import '../../constants/gaps.dart';
@@ -80,6 +81,15 @@ class _InterestScreenState extends State<InterestScreen> {
     super.dispose();
   }
 
+  void _onNextTap() {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => const TutorialScreen(),
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -112,7 +122,7 @@ class _InterestScreenState extends State<InterestScreen> {
                 ),
                 Gaps.v20,
                 const Text(
-                  "Get better video recommandations",
+                  "Get better video recommendations",
                   style: TextStyle(
                     fontSize: Sizes.size20,
                   ),
@@ -134,22 +144,27 @@ class _InterestScreenState extends State<InterestScreen> {
       bottomNavigationBar: BottomAppBar(
         elevation: 2,
         child: Padding(
-          padding: EdgeInsets.only(
-              bottom: Sizes.size40,
-              top: Sizes.size16,
+          padding: const EdgeInsets.only(
+              //bottom: Sizes.size40,
+              //top: Sizes.size16,
+              bottom: Sizes.size1,
+              top: Sizes.size1,
               left: Sizes.size24,
               right: Sizes.size24),
           child: Container(
-            padding: EdgeInsets.symmetric(vertical: Sizes.size20),
+            padding: const EdgeInsets.symmetric(vertical: Sizes.size20),
             decoration: BoxDecoration(
               color: Theme.of(context).primaryColor,
             ),
-            child: const Text(
-              'Next',
-              textAlign: TextAlign.center,
-              style: TextStyle(
-                color: Colors.white,
-                fontSize: Sizes.size16,
+            child: GestureDetector(
+              onTap: _onNextTap,
+              child: const Text(
+                'Next',
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: Sizes.size16,
+                ),
               ),
             ),
           ),
