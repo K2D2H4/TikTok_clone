@@ -21,9 +21,12 @@ class _LoginFormScreenState extends State<LoginFormScreen> {
     if (_formKey.currentState != null) {
       if (_formKey.currentState!.validate()) {
         _formKey.currentState!.save();
-        Navigator.of(context).push(MaterialPageRoute(
-          builder: (context) => const InterestScreen(),
-        ));
+        Navigator.of(context).pushAndRemoveUntil(
+            MaterialPageRoute(
+              builder: (context) => const InterestScreen(),
+            ), (route) {
+          return false; // Whether to delete the stack of previous screens
+        });
       }
     }
   }
