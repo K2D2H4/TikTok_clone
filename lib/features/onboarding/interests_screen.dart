@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:tiktok_clone/features/onboarding/tutorial_screen.dart';
-import 'package:tiktok_clone/features/onboarding/widgets/interest_button.dart';
 
 import '../../constants/gaps.dart';
 import '../../constants/sizes.dart';
+import '../main_navigation/widgets/interest_button.dart';
 
 class InterestScreen extends StatefulWidget {
   const InterestScreen({super.key});

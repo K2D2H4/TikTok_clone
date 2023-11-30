@@ -15,6 +15,10 @@ class TikTok extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       theme: ThemeData(
+          textSelectionTheme: const TextSelectionThemeData(
+            cursorColor: Color(0xFFE9435A),
+            selectionColor: Color(0xFFE9435A),
+          ),
           primaryColor: const Color(0xFFE9435A),
           scaffoldBackgroundColor: Colors.white,
           appBarTheme: const AppBarTheme(

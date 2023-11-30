@@ -72,6 +72,9 @@ class _VideoPostState extends State<VideoPost>
         !_isPaused) {
       _videoPlayerController.play();
     }
+    if (_videoPlayerController.value.isPlaying && info.visibleFraction == 0) {
+      _onTogglePause();
+    }
   }
 
   void _onTogglePause() {
@@ -97,8 +100,9 @@ class _VideoPostState extends State<VideoPost>
       _onTogglePause();
     }
     await showModalBottomSheet(
-      backgroundColor: Colors.transparent, //Showing color of Scaffold
       context: context,
+      isScrollControlled: true,
+      backgroundColor: Colors.transparent, //Showing color of Scaffold
       builder: (context) => const VideoComments(),
     );
     _onTogglePause();
@@ -172,22 +176,27 @@ class _VideoPostState extends State<VideoPost>
                 Gaps.v10,
                 Row(
                   children: [
-                    Container(
+                    SizedBox(
                       width: _isExpanded ? 200 : 200,
-                      child: Flexible(
-                        child: RichText(
-                          overflow: TextOverflow.ellipsis,
-                          maxLines: _isExpanded ? 3 : 1,
-                          text: const TextSpan(
-                            text:
-                                "#gooleearth, #googlemaps, #goolecolls, #goolecolorse, #etc, #Korea, #Netflix",
-                            style: TextStyle(
-                              fontSize: Sizes.size16,
-                              color: Colors.white,
-                              fontWeight: FontWeight.w500,
+                      child: Flex(
+                        direction: Axis.horizontal,
+                        children: [
+                          Flexible(
+                            child: RichText(
+                              overflow: TextOverflow.ellipsis,
+                              maxLines: _isExpanded ? 3 : 1,
+                              text: const TextSpan(
+                                text:
+                                    "#gooleearth, #googlemaps, #goolecolls, #goolecolorse, #etc, #Korea, #Netflix",
+                                style: TextStyle(
+                                  fontSize: Sizes.size16,
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.w500,
+                                ),
+                              ),
                             ),
                           ),
-                        ),
+                        ],
                       ),
                     ),
                     Gaps.h10,
