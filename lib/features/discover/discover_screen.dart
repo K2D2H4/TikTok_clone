@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:tiktok_clone/constants/gaps.dart';
@@ -24,6 +23,8 @@ class DiscoverScreen extends StatefulWidget {
 
 class _DiscoverScreenState extends State<DiscoverScreen>
     with SingleTickerProviderStateMixin {
+  bool _isWritten = false;
+
   final TextEditingController _textEditingController =
       TextEditingController(text: "Initial Text");
 
@@ -37,11 +38,22 @@ class _DiscoverScreenState extends State<DiscoverScreen>
   }
 
   void _onSearchChanged(String value) {
-    print(value);
+    if (value != "") {
+      setState(() {
+        _isWritten = true;
+      });
+    }
   }
 
   void _onSearchSubmitted(String value) {
     print(value);
+  }
+
+  void _onSearchClear() {
+    _textEditingController.text = "";
+    setState(() {
+      _isWritten = false;
+    });
   }
 
   @override
@@ -59,10 +71,64 @@ class _DiscoverScreenState extends State<DiscoverScreen>
       child: Scaffold(
         resizeToAvoidBottomInset: false,
         appBar: AppBar(
-          title: CupertinoSearchTextField(
+          /*title: CupertinoSearchTextField(
             controller: _textEditingController,
             onChanged: _onSearchChanged,
             onSubmitted: _onSearchSubmitted,
+          ),*/
+          title: SizedBox(
+            height: Sizes.size40,
+            child: TextField(
+              onChanged: _onSearchChanged,
+              onSubmitted: _onSearchSubmitted,
+              controller: _textEditingController,
+              decoration: InputDecoration(
+                  prefixIcon: Padding(
+                    padding:
+                        const EdgeInsets.symmetric(horizontal: Sizes.size10),
+                    child: Row(
+                      mainAxisSize: MainAxisSize.min,
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        FaIcon(
+                          FontAwesomeIcons.magnifyingGlass,
+                          color: Colors.grey.shade400,
+                          size: Sizes.size20,
+                        ),
+                      ],
+                    ),
+                  ),
+                  suffixIcon: GestureDetector(
+                    onTap: _onSearchClear,
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: Sizes.size10,
+                      ),
+                      child: Row(
+                        mainAxisSize: MainAxisSize.min,
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        children: [
+                          if (_isWritten)
+                            FaIcon(
+                              FontAwesomeIcons.solidCircleXmark,
+                              color: Colors.grey.shade500,
+                              size: Sizes.size20,
+                            ),
+                        ],
+                      ),
+                    ),
+                  ),
+                  hintStyle: TextStyle(color: Colors.grey.shade500),
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(Sizes.size12),
+                    borderSide: BorderSide.none,
+                  ),
+                  filled: true,
+                  fillColor: Colors.grey.shade200,
+                  contentPadding: const EdgeInsets.symmetric(
+                    horizontal: Sizes.size10,
+                  )),
+            ),
           ),
           bottom: TabBar(
             controller: _tabController,
