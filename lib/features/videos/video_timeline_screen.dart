@@ -42,7 +42,7 @@ class _VideoTimelineScreenState extends State<VideoTimelineScreen> {
 
   Future<void> _onRefresh() {
     return Future.delayed(
-      Duration(seconds: 1),
+      const Duration(seconds: 1),
     );
   }
 
