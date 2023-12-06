@@ -42,9 +42,8 @@ class _VideoPostState extends State<VideoPost>
     await _videoPlayerController.initialize();
     await _videoPlayerController.setLooping(true);
 
-    if (mounted) {
-      setState(() {});
-    }
+    setState(() {});
+
     _videoPlayerController.addListener(_onVideoChange);
   }
 
@@ -70,6 +69,7 @@ class _VideoPostState extends State<VideoPost>
   }
 
   void _onVisibilityChanged(VisibilityInfo info) {
+    if (!mounted) return;
     if (info.visibleFraction == 1 &&
         !_videoPlayerController.value.isPlaying &&
         !_isPaused) {
@@ -88,11 +88,10 @@ class _VideoPostState extends State<VideoPost>
       _videoPlayerController.play();
       _animationController.forward();
     }
-    if (mounted) {
-      setState(() {
-        _isPaused = !_isPaused;
-      });
-    }
+
+    setState(() {
+      _isPaused = !_isPaused;
+    });
   }
 
   void _onSeeMoreTap() {
