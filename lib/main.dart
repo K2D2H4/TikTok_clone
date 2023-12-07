@@ -1,9 +1,21 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:tiktok_clone/features/main_navigation/main_navigation_screen.dart';
 
 import 'constants/sizes.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await SystemChrome.setPreferredOrientations(
+    [
+      DeviceOrientation.portraitUp,
+    ],
+  );
+
+  /* SystemChrome.setSystemUIOverlayStyle(
+    SystemUiOverlayStyle.dark,
+  );*/
+
   runApp(const TikTok());
 }
 
@@ -14,6 +26,7 @@ class TikTok extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       theme: ThemeData(
           textSelectionTheme: const TextSelectionThemeData(
             cursorColor: Color(0xFFE9435A),
@@ -34,6 +47,31 @@ class TikTok extends StatelessWidget {
             ),
           )),
       home: const MainNavigationScreen(),
+    );
+  }
+}
+
+class LayoutBuilderCodeLab extends StatelessWidget {
+  const LayoutBuilderCodeLab({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    final size = MediaQuery.of(context).size;
+    return Scaffold(
+      body: Container(
+        width: size.width,
+        height: size.height,
+        color: Colors.teal,
+        child: Center(
+          child: Text(
+            '${size.width}',
+            style: const TextStyle(
+              color: Colors.white,
+              fontSize: 100,
+            ),
+          ),
+        ),
+      ),
     );
   }
 }
