@@ -5,6 +5,7 @@ import 'package:tiktok_clone/constants/sizes.dart';
 import 'package:tiktok_clone/features/authentication/widgets/auth_button.dart';
 import 'package:tiktok_clone/features/authentication/widgets/username_screen.dart';
 
+import '../../utils.dart';
 import 'login_screen.dart';
 
 class SignUpScreen extends StatelessWidget {
@@ -36,7 +37,7 @@ class SignUpScreen extends StatelessWidget {
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   Gaps.v80,
-                  const Text(
+                  Text(
                     "Sign up for TikTok",
                     style: TextStyle(
                       fontSize: Sizes.size24,
@@ -44,11 +45,13 @@ class SignUpScreen extends StatelessWidget {
                     ),
                   ),
                   Gaps.v20,
-                  const Text(
+                  Text(
                     "Create a profile, follow other accounts, make your own videos, and more.",
                     style: TextStyle(
                       fontSize: Sizes.size16,
-                      color: Colors.black45,
+                      color: isDarkMode(context)
+                          ? Colors.grey.shade400
+                          : Colors.black45,
                     ),
                     textAlign: TextAlign.center,
                   ),
@@ -77,8 +80,8 @@ class SignUpScreen extends StatelessWidget {
                           ),
                         ),
                         Gaps.v16,
-                        Expanded(
-                          child: const AuthButton(
+                        const Expanded(
+                          child: AuthButton(
                               icon: FaIcon(FontAwesomeIcons.apple),
                               text: "Continue with Apple"),
                         ),
@@ -89,7 +92,9 @@ class SignUpScreen extends StatelessWidget {
             ),
           ),
           bottomNavigationBar: BottomAppBar(
-            color: Colors.grey.shade50,
+            color: isDarkMode(context)
+                ? Colors.grey.shade900
+                : Colors.grey.shade50,
             elevation: 2,
             child: Padding(
               padding: const EdgeInsets.symmetric(

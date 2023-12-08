@@ -5,6 +5,8 @@ import 'package:tiktok_clone/constants/sizes.dart';
 import 'package:tiktok_clone/features/authentication/widgets/auth_button.dart';
 import 'package:tiktok_clone/features/authentication/widgets/login_form_screen.dart';
 
+import '../../utils.dart';
+
 class LoginScreen extends StatelessWidget {
   const LoginScreen({super.key});
 
@@ -64,7 +66,7 @@ class LoginScreen extends StatelessWidget {
         ),
       ),
       bottomNavigationBar: BottomAppBar(
-        color: Colors.grey.shade50,
+        color: isDarkMode(context) ? Colors.grey.shade900 : Colors.grey.shade50,
         elevation: 2,
         child: Padding(
           padding: const EdgeInsets.symmetric(

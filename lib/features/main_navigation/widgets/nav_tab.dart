@@ -26,6 +26,7 @@ class NavTab extends StatelessWidget {
       child: GestureDetector(
         onTap: () => onTap(),
         child: Container(
+          width: 400,
           color: selectedIndex == 0 ? Colors.black : Colors.grey.shade100,
           child: AnimatedOpacity(
             duration: const Duration(
