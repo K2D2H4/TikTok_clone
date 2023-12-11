@@ -105,14 +105,14 @@ class _SettingsScreenState extends State<SettingsScreen> {
                         title: const Text("Are you sure?"),
                         actions: [
                           CupertinoActionSheetAction(
-                            child: const Text('Not log out'),
                             onPressed: () => Navigator.of(context).pop(),
                             isDefaultAction: true,
+                            child: const Text('Not log out'),
                           ),
                           CupertinoActionSheetAction(
-                            child: const Text('Yes pls'),
                             onPressed: () => Navigator.of(context).pop(),
                             isDestructiveAction: true,
+                            child: const Text('Yes pls'),
                           ),
                         ],
                       ),
@@ -125,7 +125,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                     ),
                   ),
                 ),
-                AboutListTile(child: Text('About this App')),
+                const AboutListTile(child: Text('About this App')),
               ],
             ),
           ),

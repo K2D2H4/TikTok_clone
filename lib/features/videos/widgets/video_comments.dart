@@ -3,6 +3,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 import '../../../constants/gaps.dart';
 import '../../../constants/sizes.dart';
+import '../../../utils.dart';
 
 class VideoComments extends StatefulWidget {
   const VideoComments({super.key});
@@ -36,6 +37,7 @@ class _VideoCommentsState extends State<VideoComments> {
 
   @override
   Widget build(BuildContext context) {
+    final isDark = isDarkMode(context);
     final size = MediaQuery.of(context).size;
     return Container(
       height: size.height * 0.80,
@@ -44,9 +46,9 @@ class _VideoCommentsState extends State<VideoComments> {
         borderRadius: BorderRadius.circular(Sizes.size14),
       ),
       child: Scaffold(
-        backgroundColor: Colors.grey.shade50,
+        backgroundColor: isDark ? null : Colors.grey.shade50,
         appBar: AppBar(
-          backgroundColor: Colors.grey.shade50,
+          backgroundColor: isDark ? null : Colors.grey.shade50,
           automaticallyImplyLeading: false,
           title: const Text("22879 comments"),
           actions: [
@@ -74,7 +76,8 @@ class _VideoCommentsState extends State<VideoComments> {
                   itemBuilder: (context, index) => Row(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      const CircleAvatar(
+                      CircleAvatar(
+                        backgroundColor: isDark ? Colors.grey.shade500 : null,
                         radius: 18,
                         child: Text('KDH'),
                       ),
@@ -124,7 +127,6 @@ class _VideoCommentsState extends State<VideoComments> {
                 bottom: 0,
                 width: size.width,
                 child: BottomAppBar(
-                  color: Colors.white,
                   child: Padding(
                     padding: const EdgeInsets.only(
                       bottom: Sizes.size2,
@@ -159,7 +161,9 @@ class _VideoCommentsState extends State<VideoComments> {
                                   borderSide: BorderSide.none,
                                 ),
                                 filled: true,
-                                fillColor: Colors.grey.shade200,
+                                fillColor: isDark
+                                    ? Colors.grey.shade800
+                                    : Colors.grey.shade200,
                                 contentPadding: const EdgeInsets.symmetric(
                                   horizontal: Sizes.size20,
                                 ),
@@ -172,17 +176,23 @@ class _VideoCommentsState extends State<VideoComments> {
                                     children: [
                                       FaIcon(
                                         FontAwesomeIcons.at,
-                                        color: Colors.grey.shade800,
+                                        color: isDark
+                                            ? Colors.grey.shade500
+                                            : Colors.grey.shade800,
                                       ),
                                       Gaps.h10,
                                       FaIcon(
                                         FontAwesomeIcons.gift,
-                                        color: Colors.grey.shade800,
+                                        color: isDark
+                                            ? Colors.grey.shade500
+                                            : Colors.grey.shade800,
                                       ),
                                       Gaps.h10,
                                       FaIcon(
                                         FontAwesomeIcons.faceSmile,
-                                        color: Colors.grey.shade800,
+                                        color: isDark
+                                            ? Colors.grey.shade500
+                                            : Colors.grey.shade800,
                                       ),
                                       Gaps.h10,
                                       if (_isWriting)
