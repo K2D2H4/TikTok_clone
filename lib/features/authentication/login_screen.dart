@@ -9,6 +9,7 @@ import '../../utils.dart';
 
 class LoginScreen extends StatelessWidget {
   const LoginScreen({super.key});
+  static String routName = "/login";
 
   void _onLoginTap(BuildContext context) {
     Navigator.of(context).pop(); // go back to previous screen

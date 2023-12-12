@@ -8,6 +8,7 @@ import 'package:video_player/video_player.dart';
 import 'package:visibility_detector/visibility_detector.dart';
 
 import '../../../constants/sizes.dart';
+import '../../../generated/l10n.dart';
 
 class VideoPost extends StatefulWidget {
   const VideoPost(
@@ -253,13 +254,17 @@ class _VideoPostState extends State<VideoPost>
                   child: Text("KDH"),
                 ),
                 Gaps.v20,
-                const VideoButton(
-                    icon: FontAwesomeIcons.solidHeart, text: "2.9M"),
+                VideoButton(
+                  icon: FontAwesomeIcons.solidHeart,
+                  text: S.of(context).likeCount(23245),
+                ),
                 Gaps.v20,
                 GestureDetector(
                   onTap: () => _onCommentsTap(context),
-                  child: const VideoButton(
-                      icon: FontAwesomeIcons.solidComment, text: "33K"),
+                  child: VideoButton(
+                    icon: FontAwesomeIcons.solidComment,
+                    text: S.of(context).commentCount(997897987),
+                  ),
                 ),
                 Gaps.v20,
                 const VideoButton(icon: FontAwesomeIcons.share, text: "Share"),
