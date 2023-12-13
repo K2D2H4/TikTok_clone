@@ -1,24 +1,24 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:go_router/go_router.dart';
 import 'package:tiktok_clone/constants/gaps.dart';
 import 'package:tiktok_clone/constants/sizes.dart';
 import 'package:tiktok_clone/features/authentication/widgets/auth_button.dart';
+import 'package:tiktok_clone/features/authentication/widgets/username_screen.dart';
 
 import '../../generated/l10n.dart';
 import '../../utils.dart';
+import 'login_screen.dart';
 
 class SignUpScreen extends StatelessWidget {
-  static String routeName = "/";
+  static const routeURL = "/";
+  static const routeName = "signUp";
   const SignUpScreen({super.key});
 
   void _onLoginTap(BuildContext context) async {
-    /*  final result = await Navigator.of(context).push(
-      MaterialPageRoute(
-        builder: (context) => const LoginScreen(),
-      ),
-    );*/
-    final result = await Navigator.of(context).pushNamed("/login");
-    print(result);
+    context.push(LoginScreen.routName);
+    /* final result = await Navigator.of(context).pushNamed("/login");
+    print(result);*/
   }
 
   void _onEmailTap(BuildContext context) async {
@@ -38,7 +38,7 @@ class SignUpScreen extends StatelessWidget {
     /* MaterialPageRoute(
         builder: (context) => const UsernameScreen(),
       ),*/
-    Navigator.of(context).pushNamed("/username");
+    context.pushNamed(UsernameScreen.routeName,);
     //);
   }
 
@@ -99,14 +99,14 @@ class SignUpScreen extends StatelessWidget {
                           child: GestureDetector(
                             onTap: () => _onEmailTap(context),
                             child: AuthButton(
-                                icon: FaIcon(FontAwesomeIcons.user),
+                                icon: const FaIcon(FontAwesomeIcons.user),
                                 text: S.of(context).emailPasswordButton),
                           ),
                         ),
-                        Gaps.v16,
+                        Gaps.h10,
                         Expanded(
                           child: AuthButton(
-                              icon: FaIcon(FontAwesomeIcons.apple),
+                              icon: const FaIcon(FontAwesomeIcons.apple),
                               text: S.of(context).appleButton),
                         ),
                       ],

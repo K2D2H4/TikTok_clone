@@ -8,13 +8,19 @@ import 'package:tiktok_clone/features/settings/settings_screen.dart';
 import '../../constants/sizes.dart';
 
 class UserProfileScreen extends StatefulWidget {
-  const UserProfileScreen({super.key});
+  const UserProfileScreen({
+    super.key,
+    required this.username,
+    required this.tab,
+  });
+  final String username;
+  final String tab;
 
   @override
-  State createState() => _UserProfileScreenState();
+  State<UserProfileScreen> createState() => _UserProfileScreenState();
 }
 
-class _UserProfileScreenState extends State {
+class _UserProfileScreenState extends State<UserProfileScreen> {
   void _onGearPressed() {
     Navigator.of(context).push(
       MaterialPageRoute(
@@ -30,6 +36,7 @@ class _UserProfileScreenState extends State {
       backgroundColor: Theme.of(context).appBarTheme.backgroundColor,
       body: SafeArea(
         child: DefaultTabController(
+          initialIndex: widget.tab == 'likes' ? 1 : 0,
           length: 2,
           child: NestedScrollView(
             headerSliverBuilder: (context, innerBoxIsScrolled) {
@@ -37,7 +44,7 @@ class _UserProfileScreenState extends State {
                 if (width <= Breakpoints.md) ...[
                   SliverAppBar(
                     centerTitle: true,
-                    title: const Text('KDH'),
+                    title: Text(widget.username),
                     actions: [
                       IconButton(
                         onPressed: _onGearPressed,
@@ -61,9 +68,9 @@ class _UserProfileScreenState extends State {
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            const Text(
-                              '@KDH',
-                              style: TextStyle(
+                            Text(
+                              '@${widget.username}',
+                              style: const TextStyle(
                                 fontWeight: FontWeight.w600,
                                 fontSize: Sizes.size18,
                               ),
@@ -296,9 +303,9 @@ class _UserProfileScreenState extends State {
                             Row(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
-                                const Text(
-                                  '@KDH',
-                                  style: TextStyle(
+                                Text(
+                                  '@${widget.username}',
+                                  style: const TextStyle(
                                     fontWeight: FontWeight.w600,
                                     fontSize: Sizes.size18,
                                   ),
