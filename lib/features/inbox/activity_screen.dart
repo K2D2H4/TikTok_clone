@@ -43,7 +43,8 @@ class _ActivityScreenState extends State<ActivityScreen>
     }
   ];
 
-  late final AnimationController _animationController = AnimationController(
+  late final AnimationController _ButtonAnimationController =
+      AnimationController(
     vsync: this,
     duration: const Duration(
       milliseconds: 300,
@@ -53,17 +54,17 @@ class _ActivityScreenState extends State<ActivityScreen>
   bool _showBarrier = false;
 
   late final Animation<double> _arrowAnimation =
-      Tween(begin: 0.0, end: 0.5).animate(_animationController);
+      Tween(begin: 0.0, end: 0.5).animate(_ButtonAnimationController);
 
   late final Animation<Color?> _barrierAnimation = ColorTween(
     begin: Colors.transparent,
     end: Colors.black38,
-  ).animate(_animationController);
+  ).animate(_ButtonAnimationController);
 
   late final Animation<Offset> _panelAnimation = Tween(
     begin: const Offset(0, -1),
     end: Offset.zero,
-  ).animate(_animationController);
+  ).animate(_ButtonAnimationController);
 
   void _onDismissed(String notification) {
     _notifications.remove(notification);
@@ -71,10 +72,10 @@ class _ActivityScreenState extends State<ActivityScreen>
   }
 
   void _toggleAnimations() async {
-    if (_animationController.isCompleted) {
-      await _animationController.reverse();
+    if (_ButtonAnimationController.isCompleted) {
+      await _ButtonAnimationController.reverse();
     } else {
-      _animationController.forward();
+      _ButtonAnimationController.forward();
     }
     setState(() {
       _showBarrier = !_showBarrier;

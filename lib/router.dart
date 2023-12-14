@@ -1,6 +1,6 @@
 import 'package:go_router/go_router.dart';
 
-import 'features/videos/Video_recording_screen.dart';
+import 'features/videos/video_recording_screen.dart';
 
 final router = GoRouter(routes: [
   GoRoute(
