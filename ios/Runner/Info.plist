@@ -2,6 +2,10 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>NSCameraUsageDescription</key>
+	<string>Give me a permission for access camera</string>
+	<key>NSMicrophoneUsageDescription</key>
+	<string>Give me a permission for access mic</string>
     <key>NSPhotoLibraryUsageDescription</key>
     <string>To read and save pics and videos</string>
 	<key>CFBundleDevelopmentRegion</key>
@@ -25,6 +29,9 @@
 	<key>CFBundleVersion</key>
 	<string>$(FLUTTER_BUILD_NUMBER)</string>
 	<key>LSRequiresIPhoneOS</key>
+	<true/>
+
+	<key>UIApplicationSupportsIndirectInputEvents</key>
 	<true/>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>

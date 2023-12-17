@@ -56,6 +56,7 @@ class _VideoRecordingScreenState extends State<VideoRecordingScreen>
     if (cameras.isEmpty) {
       return;
     }
+
     _cameraController = CameraController(
       cameras[_isSelfieMode ? 1 : 0],
       ResolutionPreset.ultraHigh,
@@ -81,6 +82,7 @@ class _VideoRecordingScreenState extends State<VideoRecordingScreen>
       await initCamera();
       setState(() {});
     }
+    print(_hasPermission);
   }
 
   @override
