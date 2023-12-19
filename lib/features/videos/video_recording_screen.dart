@@ -82,7 +82,7 @@ class _VideoRecordingScreenState extends State<VideoRecordingScreen>
     _flashMode = _cameraController.value.flashMode;
     _maxZoom = await _cameraController.getMaxZoomLevel();
     _minZoom = await _cameraController.getMinZoomLevel();
-    _currentZoom = (_maxZoom + _minZoom) / 5;
+    _currentZoom = 1;
     setState(() {});
   }
 
@@ -129,15 +129,13 @@ class _VideoRecordingScreenState extends State<VideoRecordingScreen>
   }
 
   Future<void> _zoomInOut(DragUpdateDetails details) async {
-    if (details.localPosition.dy >= 0) {
-      if (_currentZoom + (-details.localPosition.dy * 0.05) < _minZoom) return;
-      _cameraController
-          .setZoomLevel(_currentZoom + (-details.localPosition.dy * 0.05));
-    }
-    if (details.localPosition.dy < 0) {
-      if (_currentZoom + (-details.localPosition.dy * 0.005) > _maxZoom) return;
-      _cameraController
-          .setZoomLevel(_currentZoom + (-details.localPosition.dy * 0.005));
+    final dy = details.localPosition.dy;
+    if (dy >= 0) {
+      if (_minZoom > _currentZoom + (-dy * 0.05)) return;
+      _cameraController.setZoomLevel(_currentZoom + (-dy * 0.05));
+    } else {
+      if (_maxZoom < _currentZoom + (-dy * 0.005)) return;
+      _cameraController.setZoomLevel(_currentZoom + (-dy * 0.005));
     }
   }
 
