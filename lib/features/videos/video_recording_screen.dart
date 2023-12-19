@@ -17,9 +17,12 @@ class VideoRecordingScreen extends StatefulWidget {
 }
 
 class _VideoRecordingScreenState extends State<VideoRecordingScreen>
-    with TickerProviderStateMixin {
+    with TickerProviderStateMixin, WidgetsBindingObserver {
   bool _hasPermission = false;
   bool _isSelfieMode = false;
+  late double _currentZoom;
+  late double _maxZoom;
+  late double _minZoom;
 
   late final AnimationController _buttonAnimationController =
       AnimationController(
@@ -50,6 +53,17 @@ class _VideoRecordingScreenState extends State<VideoRecordingScreen>
     setState(() {});
   }
 
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    if (!_hasPermission) return;
+    if (!_cameraController.value.isInitialized) return;
+    if (state == AppLifecycleState.inactive) {
+      _cameraController.dispose();
+    } else if (state == AppLifecycleState.resumed) {
+      initCamera();
+    }
+  }
+
   Future<void> initCamera() async {
     final cameras = await availableCameras();
 
@@ -66,6 +80,10 @@ class _VideoRecordingScreenState extends State<VideoRecordingScreen>
     await _cameraController.prepareForVideoRecording(); // only for IOS
 
     _flashMode = _cameraController.value.flashMode;
+    _maxZoom = await _cameraController.getMaxZoomLevel();
+    _minZoom = await _cameraController.getMinZoomLevel();
+    _currentZoom = (_maxZoom + _minZoom) / 5;
+    setState(() {});
   }
 
   Future<void> initPermissions() async {
@@ -90,6 +108,7 @@ class _VideoRecordingScreenState extends State<VideoRecordingScreen>
     // TODO: implement initState
     super.initState();
     initPermissions();
+    WidgetsBinding.instance.addObserver(this);
     _progressAnimationController.addListener(() {
       setState(() {});
     });
@@ -109,6 +128,19 @@ class _VideoRecordingScreenState extends State<VideoRecordingScreen>
     _progressAnimationController.forward();
   }
 
+  Future<void> _zoomInOut(DragUpdateDetails details) async {
+    if (details.localPosition.dy >= 0) {
+      if (_currentZoom + (-details.localPosition.dy * 0.05) < _minZoom) return;
+      _cameraController
+          .setZoomLevel(_currentZoom + (-details.localPosition.dy * 0.05));
+    }
+    if (details.localPosition.dy < 0) {
+      if (_currentZoom + (-details.localPosition.dy * 0.005) > _maxZoom) return;
+      _cameraController
+          .setZoomLevel(_currentZoom + (-details.localPosition.dy * 0.005));
+    }
+  }
+
   Future<void> _stopRecording() async {
     if (!_cameraController.value.isRecordingVideo) return;
 
@@ -124,6 +156,7 @@ class _VideoRecordingScreenState extends State<VideoRecordingScreen>
       MaterialPageRoute(
         builder: (context) => VideoPreviewScreen(
           video: file,
+          isPicked: false,
         ),
       ),
     );
@@ -149,7 +182,18 @@ class _VideoRecordingScreenState extends State<VideoRecordingScreen>
       source: ImageSource.gallery,
     );
     if (video == null) return;
-    print(video);
+
+    if (!mounted) return;
+
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => VideoPreviewScreen(
+          video: video,
+          isPicked: false,
+        ),
+      ),
+    );
   }
 
   @override
@@ -229,6 +273,7 @@ class _VideoRecordingScreenState extends State<VideoRecordingScreen>
                         children: [
                           const Spacer(),
                           GestureDetector(
+                            onPanUpdate: _zoomInOut,
                             onTapDown: _startRecording,
                             onTapUp: (details) => _stopRecording(),
                             child: ScaleTransition(
