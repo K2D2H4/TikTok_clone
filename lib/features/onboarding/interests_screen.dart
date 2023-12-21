@@ -5,13 +5,6 @@ import '../../constants/gaps.dart';
 import '../../constants/sizes.dart';
 import 'widgets/interest_button.dart';
 
-class InterestScreen extends StatefulWidget {
-  const InterestScreen({super.key});
-
-  @override
-  State<InterestScreen> createState() => _InterestScreenState();
-}
-
 const interests = [
   "Daily Life",
   "Comedy",
@@ -52,6 +45,16 @@ const interests = [
   "Oddly Satisfying",
   "Home & Garden",
 ];
+
+class InterestScreen extends StatefulWidget {
+  static const String routeName = "interest";
+  static const String routeURL = "/tutorial";
+
+  const InterestScreen({super.key});
+
+  @override
+  State<InterestScreen> createState() => _InterestScreenState();
+}
 
 class _InterestScreenState extends State<InterestScreen> {
   final ScrollController _scrollController = ScrollController();

@@ -16,30 +16,18 @@ class SignUpScreen extends StatelessWidget {
   const SignUpScreen({super.key});
 
   void _onLoginTap(BuildContext context) async {
-    context.push(LoginScreen.routName);
+    context.pushNamed(LoginScreen.routeName);
     /* final result = await Navigator.of(context).pushNamed("/login");
     print(result);*/
   }
 
   void _onEmailTap(BuildContext context) async {
-    //  '_' << this means private function
-    //Navigator.of(context).push(
-    /*PageRouteBuilder(
-        transitionDuration: const Duration(milliseconds: 500),
-        reverseTransitionDuration: const Duration(milliseconds: 500),
-        pageBuilder: (context, animation, secondaryAnimation) =>
-            const UsernameScreen(),
-        transitionsBuilder: (context, animation, secondaryAnimation, child) =>
-            FadeTransition(
-          opacity: animation,
-          child: child,
-        ),
-      ),*/
-    /* MaterialPageRoute(
+    Navigator.push(
+      context,
+      MaterialPageRoute(
         builder: (context) => const UsernameScreen(),
-      ),*/
-    context.pushNamed(UsernameScreen.routeName,);
-    //);
+      ),
+    );
   }
 
   @override
@@ -70,7 +58,7 @@ class SignUpScreen extends StatelessWidget {
                   ),
                   Gaps.v20,
                   Text(
-                    S.of(context).signUpSubTitle(1),
+                    S.of(context).signUpSubtitle(1),
                     style: TextStyle(
                       fontSize: Sizes.size16,
                       color: isDarkMode(context)
