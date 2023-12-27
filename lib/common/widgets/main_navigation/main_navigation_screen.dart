@@ -5,12 +5,12 @@ import 'package:tiktok_clone/common/widgets/main_navigation/widgets/nav_tab.dart
 import 'package:tiktok_clone/common/widgets/main_navigation/widgets/post_video_button.dart';
 import 'package:tiktok_clone/features/Users/user_profile_screen.dart';
 import 'package:tiktok_clone/features/discover/discover_screen.dart';
-import 'package:tiktok_clone/features/videos/video_recording_screen.dart';
+import 'package:tiktok_clone/features/videos/view/video_recording_screen.dart';
 
 import '../../../constants/gaps.dart';
 import '../../../constants/sizes.dart';
 import '../../../features/inbox/inbox_screen.dart';
-import '../../../features/videos/video_timeline_screen.dart';
+import '../../../features/videos/view/video_timeline_screen.dart';
 import '../../../utils.dart';
 
 class MainNavigationScreen extends StatefulWidget {

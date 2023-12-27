@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
+import '../../common/widgets/common_config/theme_config.dart';
 import '../../constants/breakpoint.dart';
 
 class SettingsScreen extends StatefulWidget {
@@ -38,14 +39,19 @@ class _SettingsScreenState extends State<SettingsScreen> {
             ),
             child: ListView(
               children: [
-                /*    SwitchListTile.adaptive(
-                  title: const Text(
-                    'Auto mute videos',
+                ValueListenableBuilder(
+                  valueListenable: darkModeConfig,
+                  builder: (context, value, child) => SwitchListTile.adaptive(
+                    title: const Text(
+                      'Dark mode',
+                    ),
+                    subtitle: const Text('Set dark mode as default.'),
+                    value: value,
+                    onChanged: (value) {
+                      darkModeConfig.value = !darkModeConfig.value;
+                    },
                   ),
-                  subtitle: const Text('Videos will be muted by default.'),
-                  value: VideoConfig.of(context).autoMute,
-                  onChanged: (value) {},
-                ),*/
+                ),
                 SwitchListTile.adaptive(
                   title: const Text(
                     'Enable Notifications',
