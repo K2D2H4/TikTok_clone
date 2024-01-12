@@ -1,5 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:tiktok_clone/features/videos/view_models/playbakc_config_vm.dart';
 
 import '../../common/widgets/common_config/theme_config.dart';
 import '../../constants/breakpoint.dart';
@@ -39,6 +41,26 @@ class _SettingsScreenState extends State<SettingsScreen> {
             ),
             child: ListView(
               children: [
+                SwitchListTile.adaptive(
+                  title: const Text(
+                    'Mute Video',
+                  ),
+                  subtitle: const Text('Video will be muted by default.'),
+                  value: context.watch<PlayBackConfigViewModel>().muted,
+                  onChanged: (value) =>
+                      context.read<PlayBackConfigViewModel>().setMuted(value),
+                ),
+                SwitchListTile.adaptive(
+                  title: const Text(
+                    'Autoplay',
+                  ),
+                  subtitle:
+                      const Text('Video will start playing automatically.'),
+                  value: context.watch<PlayBackConfigViewModel>().autoPlay,
+                  onChanged: (value) => context
+                      .read<PlayBackConfigViewModel>()
+                      .setAutoplay(value),
+                ),
                 ValueListenableBuilder(
                   valueListenable: darkModeConfig,
                   builder: (context, value, child) => SwitchListTile.adaptive(

@@ -32,6 +32,7 @@ void main() async {
           create: (context) => PlayBackConfigViewModel(repository),
         ),
       ],
+      child: const TikTok(),
     ),
   );
 }
