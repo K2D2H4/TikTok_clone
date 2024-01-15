@@ -1,11 +1,9 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:provider/provider.dart';
 import 'package:tiktok_clone/constants/gaps.dart';
 import 'package:tiktok_clone/constants/sizes.dart';
 import 'package:tiktok_clone/features/videos/view/widgets/video_comments.dart';
-import 'package:tiktok_clone/features/videos/view_models/playbakc_config_vm.dart';
 import 'package:tiktok_clone/generated/l10n.dart';
 import 'package:video_player/video_player.dart';
 import 'package:visibility_detector/visibility_detector.dart';
@@ -70,9 +68,14 @@ class _VideoPostState extends State<VideoPost>
       value: 1.5,
       duration: _animationDuration,
     );
-    context
-        .read<PlayBackConfigViewModel>()
-        .addListener(_onPlaybackConfigChanged);
+
+    if (false) {
+      _isVolumeMuted = true;
+      _videoPlayerController.setVolume(0);
+    } else {
+      _isVolumeMuted = false;
+      _videoPlayerController.setVolume(1);
+    }
   }
 
   @override
@@ -82,23 +85,12 @@ class _VideoPostState extends State<VideoPost>
     super.dispose();
   }
 
-  void _onPlaybackConfigChanged() {
-    if (!mounted) return;
-    final muted = context.read<PlayBackConfigViewModel>().muted;
-    if (muted) {
-      _videoPlayerController.setVolume(0);
-    } else {
-      _videoPlayerController.setVolume(1);
-    }
-  }
-
   void _onVisibilityChanged(VisibilityInfo info) {
     if (!mounted) return;
     if (info.visibleFraction == 1 &&
         !_isPaused &&
         !_videoPlayerController.value.isPlaying) {
-      final autoPlay = context.read<PlayBackConfigViewModel>().autoPlay;
-      if (autoPlay) {
+      if (false) {
         _videoPlayerController.play();
       }
     }
@@ -191,23 +183,6 @@ class _VideoPostState extends State<VideoPost>
                   ),
                 ),
               ),
-            ),
-          ),
-          Positioned(
-            left: 20,
-            top: 40,
-            child: IconButton(
-              icon: FaIcon(
-                context.watch<PlayBackConfigViewModel>().muted
-                    ? FontAwesomeIcons.volumeOff
-                    : FontAwesomeIcons.volumeHigh,
-                color: Colors.white,
-              ),
-              onPressed: () {
-                context.read<PlayBackConfigViewModel>().setMuted(
-                      !context.watch<PlayBackConfigViewModel>().muted,
-                    );
-              },
             ),
           ),
           Positioned(
