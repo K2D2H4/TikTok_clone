@@ -1,26 +1,28 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:tiktok_clone/constants/gaps.dart';
 import 'package:tiktok_clone/constants/sizes.dart';
 import 'package:tiktok_clone/features/videos/view/widgets/video_comments.dart';
+import 'package:tiktok_clone/features/videos/view_models/playbakc_config_vm.dart';
 import 'package:tiktok_clone/generated/l10n.dart';
 import 'package:video_player/video_player.dart';
 import 'package:visibility_detector/visibility_detector.dart';
 
 import 'video_Button.dart';
 
-class VideoPost extends StatefulWidget {
+class VideoPost extends ConsumerStatefulWidget {
   const VideoPost(
       {super.key, required this.onVideoFinished, required this.index});
   final Function onVideoFinished;
   final int index;
 
   @override
-  State<VideoPost> createState() => _VideoPostState();
+  VideoPostState createState() => VideoPostState();
 }
 
-class _VideoPostState extends State<VideoPost>
+class VideoPostState extends ConsumerState<VideoPost>
     with SingleTickerProviderStateMixin {
   final VideoPlayerController _videoPlayerController =
       VideoPlayerController.asset("assets/videos/video1.mp4");
@@ -69,7 +71,7 @@ class _VideoPostState extends State<VideoPost>
       duration: _animationDuration,
     );
 
-    if (false) {
+    if (ref.read(playBackConfigProvider).muted) {
       _isVolumeMuted = true;
       _videoPlayerController.setVolume(0);
     } else {
@@ -90,7 +92,7 @@ class _VideoPostState extends State<VideoPost>
     if (info.visibleFraction == 1 &&
         !_isPaused &&
         !_videoPlayerController.value.isPlaying) {
-      if (false) {
+      if (ref.watch(playBackConfigProvider).autoPlay) {
         _videoPlayerController.play();
       }
     }

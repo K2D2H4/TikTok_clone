@@ -84,7 +84,6 @@ class SettingsScreen extends ConsumerWidget {
                       firstDate: DateTime(1980),
                       lastDate: DateTime(2030),
                     );
-                    print(date);
                   },
                   title: const Text(
                     'What is your birthday?',
