@@ -14,6 +14,7 @@ import 'features/authentication/sign_up_screen.dart';
 
 final routerProvider = Provider(
   (ref) {
+    //ref.watch(authState);
     return GoRouter(
       initialLocation: "/home",
       redirect: (context, state) {
