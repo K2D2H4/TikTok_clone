@@ -9,6 +9,11 @@ class UserRepository {
     await _db.collection("users").doc(profile.uid).set(profile.toJason());
   }
 
+  Future<Map<String, dynamic>?> findProfile(String uid) async {
+    final doc = await _db.collection("users").doc(uid).get();
+    return doc.data();
+  }
+
 //get profile
 //update profile(bio, avatar, link)
 }

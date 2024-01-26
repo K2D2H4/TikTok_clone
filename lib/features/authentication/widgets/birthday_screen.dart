@@ -25,8 +25,13 @@ class BirthdayScreenState extends ConsumerState<BirthdayScreen> {
     _setTextFiledDate(initialDate);
   }
 
-  void _onNextTap() {
-    ref.read(signUpProvider.notifier).signUp(context);
+  Future<void> _onNextTap() async {
+    final state = ref.read(signUpForm.notifier).state;
+    ref.read(signUpForm.notifier).state = {
+      ...state,
+      "birthday": _birthdayController.text
+    };
+    await ref.read(signUpProvider.notifier).signUp(context);
     //context.goNamed(InterestScreen.routeName);
   }
 
