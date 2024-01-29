@@ -3,7 +3,9 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:tiktok_clone/constants/breakpoint.dart';
 import 'package:tiktok_clone/constants/gaps.dart';
+import 'package:tiktok_clone/features/Users/Edit_profile_screen.dart';
 import 'package:tiktok_clone/features/Users/view_models/users_view_model.dart';
+import 'package:tiktok_clone/features/Users/widgets/avatar.dart';
 import 'package:tiktok_clone/features/Users/widgets/persistent_tab_bar.dart';
 import 'package:tiktok_clone/features/settings/settings_screen.dart';
 
@@ -27,6 +29,14 @@ class UserProfileScreenState extends ConsumerState<UserProfileScreen> {
     Navigator.of(context).push(
       MaterialPageRoute(
         builder: (context) => const SettingsScreen(),
+      ),
+    );
+  }
+
+  void _onEditPressed() {
+    Navigator.of(context).push(
+      MaterialPageRoute(
+        builder: (context) => const EditProfileScreen(),
       ),
     );
   }
@@ -55,32 +65,39 @@ class UserProfileScreenState extends ConsumerState<UserProfileScreen> {
                       if (width <= Breakpoints.md) ...[
                         SliverAppBar(
                           centerTitle: true,
-                          title: Text(widget.username),
+                          title: Text(data.name),
                           actions: [
+                            IconButton(
+                              onPressed: _onEditPressed,
+                              icon: const FaIcon(
+                                FontAwesomeIcons.pen,
+                                size: Sizes.size20,
+                              ),
+                            ),
                             IconButton(
                               onPressed: _onGearPressed,
                               icon: const FaIcon(
                                 FontAwesomeIcons.gear,
                                 size: Sizes.size20,
                               ),
-                            )
+                            ),
                           ],
                         ),
                         SliverToBoxAdapter(
                           child: Column(
                             children: [
                               Gaps.v20,
-                              const CircleAvatar(
-                                radius: 50,
-                                foregroundImage: NetworkImage(
-                                    "https://avatars.githubusercontent.com/u/139418272?v=4"),
+                              Avatar(
+                                uid: data.uid,
+                                name: data.name,
+                                hasAvatar: data.hasAvatar,
                               ),
                               Gaps.v20,
                               Row(
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
                                   Text(
-                                    '@${widget.username}',
+                                    '@${data.name}',
                                     style: const TextStyle(
                                       fontWeight: FontWeight.w600,
                                       fontSize: Sizes.size18,
@@ -289,7 +306,7 @@ class UserProfileScreenState extends ConsumerState<UserProfileScreen> {
                       if (width > Breakpoints.md) ...[
                         SliverAppBar(
                           centerTitle: true,
-                          title: const Text('KDH'),
+                          title: Text(data.name),
                           actions: [
                             IconButton(
                               onPressed: _onGearPressed,
@@ -316,7 +333,7 @@ class UserProfileScreenState extends ConsumerState<UserProfileScreen> {
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     children: [
                                       Text(
-                                        '@${widget.username}',
+                                        '@${data.name}',
                                         style: const TextStyle(
                                           fontWeight: FontWeight.w600,
                                           fontSize: Sizes.size18,

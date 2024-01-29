@@ -12,8 +12,8 @@ class UsersViewModel extends AsyncNotifier<UserProfileModel> {
 
   @override
   FutureOr<UserProfileModel> build() async {
-    _userRepository = ref.read((userRepo));
-    _authenticationRepository = ref.read((authRepo));
+    _userRepository = ref.read(userRepo);
+    _authenticationRepository = ref.read(authRepo);
 
     if (_authenticationRepository.isLoggedIn) {
       final profile = await _userRepository
@@ -36,6 +36,7 @@ class UsersViewModel extends AsyncNotifier<UserProfileModel> {
     }
     state = AsyncValue.loading();
     final profile = UserProfileModel(
+      hasAvatar: false,
       uid: credential.user!.uid,
       email: credential.user!.email ?? email,
       name: credential.user!.displayName ?? name,
@@ -45,6 +46,12 @@ class UsersViewModel extends AsyncNotifier<UserProfileModel> {
     );
     await _userRepository.createProfile(profile);
     state = AsyncValue.data(profile);
+  }
+
+  Future<void> onAvatarUpload() async {
+    if (state.value == null) return;
+    state = AsyncValue.data(state.value!.copyWith(hasAvatar: true));
+    await _userRepository.updateUser(state.value!.uid, {"hasAvatar": true});
   }
 }
 
