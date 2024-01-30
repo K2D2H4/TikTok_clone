@@ -6,7 +6,7 @@ import 'package:tiktok_clone/features/Users/repos/user_repo.dart';
 import 'package:tiktok_clone/features/Users/view_models/users_view_model.dart';
 import 'package:tiktok_clone/features/authentication/repos/authentication_repo.dart';
 
-class AvatarviewModel extends AsyncNotifier<void> {
+class AvatarViewModel extends AsyncNotifier<void> {
   late final UserRepository _repository;
 
   @override
@@ -26,6 +26,6 @@ class AvatarviewModel extends AsyncNotifier<void> {
   }
 }
 
-final avatarProvider = AsyncNotifierProvider<AvatarviewModel, void>(
-  () => AvatarviewModel(),
+final avatarProvider = AsyncNotifierProvider<AvatarViewModel, void>(
+  () => AvatarViewModel(),
 );
